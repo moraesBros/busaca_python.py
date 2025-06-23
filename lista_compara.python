@@ -1,0 +1,47 @@
+def comparar_listas(lista_inicial, lista_alterada):
+    """
+    Recebe duas listas (ou conjuntos) que representam versões de elementos.
+    Retorna uma tupla com três conjuntos:
+      - Elementos não modificados (presentes nas duas versões)
+      - Novos elementos (presentes apenas na versão alterada)
+      - Elementos removidos (presentes apenas na versão inicial)
+    """
+    # Converter as listas para conjuntos para realizar operações com conjunto
+    conjunto_inicial = set(lista_inicial)
+    conjunto_alterada = set(lista_alterada)
+
+    # Elementos que não mudaram: interseção entre os dois conjuntos.
+    nao_mudaram = conjunto_inicial & conjunto_alterada
+
+    # Novos elementos: os que estão apenas na versão alterada.
+    novos = conjunto_alterada - conjunto_inicial
+
+    # Elementos removidos: os que estão apenas na versão inicial.
+    removidos = conjunto_inicial - conjunto_alterada
+
+    return nao_mudaram, novos, removidos
+
+
+if __name__ == '__main__':
+    # Primeira versão: o dicionário de cidades (chave: cidade; valor: sigla do estado)
+    cidades = {
+        'Osasco': 'SP',
+        'Caldas': 'MG',
+        'Uberaba': 'MG',
+        'Vitória': 'ES',
+        'Cláudio': 'MG'
+    }
+    
+    # Extraímos os estados da primeira versão:
+    lista_inicial = list(set(cidades.values()))
+    
+    # Segunda versão: conforme indicado na proposta
+    lista_alterada = {'ES', 'SP', 'MG'}
+
+    # Realiza a comparação entre as duas versões
+    nao_mudaram, novos, removidos = comparar_listas(lista_inicial, lista_alterada)
+
+    # Imprime os resultados em ordem alfabética para melhor visualização
+    print("Elementos que não mudaram:", sorted(nao_mudaram))
+    print("Novos elementos:", sorted(novos))
+    print("Elementos removidos:", sorted(removidos))
